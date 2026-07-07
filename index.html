@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Detection using Machine Learning</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo"><i class="fa-solid fa-hands-asl-interpreting"></i> SignML</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#tools">Technologies</a></li>
+                <li><a href="#demo">Demo</a></li>
+            </ul>
+        </nav>
+        <a href="#demo" class="btn">Try Demo</a>
+    </header>
+
+    <section id="home">
+        <div class="hero-text">
+            <h1>Breaking Barriers with <br><span style="color: var(--primary-color);">Sign Language Detection</span></h1>
+            <p>Empowering communication through advanced Machine Learning. Translate hand gestures into readable text and speech in real-time right from your browser.</p>
+            <a href="#demo" class="btn"><i class="fa-solid fa-play"></i> Start Demo</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2 class="section-title">Key <span>Features</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fa-solid fa-video feature-icon"></i>
+                <h3>Real-Time Detection</h3>
+                <p>Captures live video feed using your device's webcam and processes frames instantly.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-language feature-icon"></i>
+                <h3>Gesture to Alphabet</h3>
+                <p>Identifies complex hand landmarks and accurately maps them to A-Z alphabets.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-font feature-icon"></i>
+                <h3>Word Formation</h3>
+                <p>Dynamically combines detected letters to form meaningful words and sentences.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-volume-high feature-icon"></i>
+                <h3>Text-to-Speech</h3>
+                <p>Converts the visually recognized words into audible speech using Web Speech API.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools">
+        <h2 class="section-title">Tools & <span>Technologies</span></h2>
+        <div class="tools-grid">
+            <div class="tool-chip"><i class="fa-brands fa-html5"></i> HTML5 & CSS3</div>
+            <div class="tool-chip"><i class="fa-brands fa-js"></i> JavaScript (ES6+)</div>
+            <div class="tool-chip"><i class="fa-solid fa-brain"></i> Machine Learning</div>
+            <div class="tool-chip"><i class="fa-brands fa-google"></i> MediaPipe Hands API</div>
+            <div class="tool-chip"><i class="fa-solid fa-camera"></i> HTML5 Webcam API</div>
+            <div class="tool-chip"><i class="fa-solid fa-microphone"></i> Web Speech API</div>
+        </div>
+    </section>
+
+    <section id="demo">
+        <h2 class="section-title">Live <span>Demo</span></h2>
+        <div class="demo-container">
+            <div class="video-wrapper">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="output_canvas"></canvas>
+                <div class="overlay-loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>Initializing ML Model...</p>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <button class="btn btn-start-camera" id="startBtn">
+                    <i class="fa-solid fa-power-off"></i> Start Camera & Detection
+                </button>
+
+                <div class="output-box">
+                    <div class="label">Current Detection</div>
+                    <div class="detected-letter" id="currentLetter">-</div>
+                    <div class="confidence" id="confidenceLabel">Confidence: 0%</div>
+                    
+                    <div class="label">Formed Word</div>
+                    <div class="formed-word-container">
+                        <div class="formed-word" id="formedWord"></div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-speak" id="speakBtn">
+                        <i class="fa-solid fa-volume-high"></i> Speak
+                    </button>
+                    <button class="btn btn-clear" id="clearBtn">
+                        <i class="fa-solid fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="chat-widget">
+        <div class="chat-toggle" id="chatToggle">
+            <i class="fa-solid fa-comment-dots"></i>
+        </div>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <span>SignML Assistant</span>
+                <i class="fa-solid fa-times close-chat" id="closeChat"></i>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message msg-bot">Hello! I am your AI assistant. Ask me how this project works or how to use it!</div>
+                <div class="typing-indicator" id="typingIndicator">Bot is typing...</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off">
+                <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sign Language Detection using Machine Learning. Created for Accessibility.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
